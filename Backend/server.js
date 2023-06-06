@@ -23,9 +23,11 @@ function getAllConnectedClients(roomId) {
 }
 
 io.on('connection', (socket) => {
-    console.log('socket connected', socket.id);
 
     socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
+
+        console.log(`User ${username} Joined room ${roomId}`);
+
         userSocketMap[socket.id] = username;
         socket.join(roomId);
         const clients = getAllConnectedClients(roomId);
@@ -49,11 +51,14 @@ io.on('connection', (socket) => {
     socket.on('disconnecting', () => {
         const rooms = [...socket.rooms];
         rooms.forEach((roomId) => {
+
             socket.in(roomId).emit(ACTIONS.DISCONNECTED, {
                 socketId: socket.id,
                 username: userSocketMap[socket.id],
             });
+
         });
+        
         delete userSocketMap[socket.id];
         socket.leave();
     });

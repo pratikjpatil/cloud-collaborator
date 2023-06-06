@@ -19,7 +19,7 @@ const Home = () => {
         if (!roomId || !username) {
             toast.error('ROOM ID & username is required');
             return;
-        }
+        } 
 
         // Redirect
         navigate(`/editor/${roomId}`, {
