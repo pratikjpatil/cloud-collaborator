@@ -34,6 +34,7 @@ const EditorPage = () => {
             socketRef.current.emit(ACTIONS.JOIN, {
                 roomId,
                 username: location.state?.username,
+                userinfo: location.state?.userinfo,
             });
 
             // Listening for joined event

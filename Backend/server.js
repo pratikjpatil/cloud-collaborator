@@ -24,9 +24,9 @@ function getAllConnectedClients(roomId) {
 
 io.on('connection', (socket) => {
 
-    socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
+    socket.on(ACTIONS.JOIN, ({ roomId, username, userinfo}) => {
 
-        console.log(`User ${username} Joined room ${roomId}`);
+        console.log(`${username} Joined room ${roomId}\nUserInfo: ${JSON.stringify(userinfo)} \n----------------------`);
 
         userSocketMap[socket.id] = username;
         socket.join(roomId);
